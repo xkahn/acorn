@@ -117,6 +117,7 @@ export const types = {
   _debugger: kw("debugger"),
   _default: kw("default", beforeExpr),
   _do: kw("do", {isLoop: true, beforeExpr: true}),
+  _each: kw("each", {isLoop: true}),
   _else: kw("else", beforeExpr),
   _finally: kw("finally"),
   _for: kw("for", {isLoop: true}),

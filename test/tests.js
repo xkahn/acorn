@@ -19547,6 +19547,232 @@ test("for(x in list) process(x);", {
   }
 });
 
+test("for each(x in list) process(x);", {
+  type: "Program",
+  body: [
+    {
+      type: "ForEachInStatement",
+      left: {
+        type: "Identifier",
+        name: "x",
+        loc: {
+          start: {
+            line: 1,
+            column: 9
+          },
+          end: {
+            line: 1,
+            column: 10
+          }
+        }
+      },
+      right: {
+        type: "Identifier",
+        name: "list",
+        loc: {
+          start: {
+            line: 1,
+            column: 14
+          },
+          end: {
+            line: 1,
+            column: 18
+          }
+        }
+      },
+      body: {
+        type: "ExpressionStatement",
+        expression: {
+          type: "CallExpression",
+          callee: {
+            type: "Identifier",
+            name: "process",
+            loc: {
+              start: {
+                line: 1,
+                column: 20
+              },
+              end: {
+                line: 1,
+                column: 27
+              }
+            }
+          },
+          arguments: [
+            {
+              type: "Identifier",
+              name: "x",
+              loc: {
+                start: {
+                  line: 1,
+                  column: 28
+                },
+                end: {
+                  line: 1,
+                  column: 29
+                }
+              }
+            }
+          ],
+          loc: {
+            start: {
+              line: 1,
+              column: 20
+            },
+            end: {
+              line: 1,
+              column: 30
+            }
+          }
+        },
+        loc: {
+          start: {
+            line: 1,
+            column: 20
+          },
+          end: {
+            line: 1,
+            column: 31
+          }
+        }
+      },
+      loc: {
+        start: {
+          line: 1,
+          column: 0
+        },
+        end: {
+          line: 1,
+          column: 31
+        }
+      }
+    }
+  ],
+  loc: {
+    start: {
+      line: 1,
+      column: 0
+    },
+    end: {
+      line: 1,
+      column: 31
+    }
+  }
+}, { ecmaVersion: 4, locations: true });
+
+test("for(x in list) process(x);", {
+  type: "Program",
+  body: [
+    {
+      type: "ForInStatement",
+      left: {
+        type: "Identifier",
+        name: "x",
+        loc: {
+          start: {
+            line: 1,
+            column: 4
+          },
+          end: {
+            line: 1,
+            column: 5
+          }
+        }
+      },
+      right: {
+        type: "Identifier",
+        name: "list",
+        loc: {
+          start: {
+            line: 1,
+            column: 9
+          },
+          end: {
+            line: 1,
+            column: 13
+          }
+        }
+      },
+      body: {
+        type: "ExpressionStatement",
+        expression: {
+          type: "CallExpression",
+          callee: {
+            type: "Identifier",
+            name: "process",
+            loc: {
+              start: {
+                line: 1,
+                column: 15
+              },
+              end: {
+                line: 1,
+                column: 22
+              }
+            }
+          },
+          arguments: [
+            {
+              type: "Identifier",
+              name: "x",
+              loc: {
+                start: {
+                  line: 1,
+                  column: 23
+                },
+                end: {
+                  line: 1,
+                  column: 24
+                }
+              }
+            }
+          ],
+          loc: {
+            start: {
+              line: 1,
+              column: 15
+            },
+            end: {
+              line: 1,
+              column: 25
+            }
+          }
+        },
+        loc: {
+          start: {
+            line: 1,
+            column: 15
+          },
+          end: {
+            line: 1,
+            column: 26
+          }
+        }
+      },
+      loc: {
+        start: {
+          line: 1,
+          column: 0
+        },
+        end: {
+          line: 1,
+          column: 26
+        }
+      }
+    }
+  ],
+  loc: {
+    start: {
+      line: 1,
+      column: 0
+    },
+    end: {
+      line: 1,
+      column: 26
+    }
+  }
+}, { ecmaVersion: 4, locations: true });
+
 test("for (var x in list) process(x);", {
   type: "Program",
   body: [

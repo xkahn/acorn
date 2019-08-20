@@ -51,7 +51,7 @@ lp.parseStatement = function() {
   case tt._for:
     this.next() // `for` keyword
     let isAwait = this.options.ecmaVersion >= 9 && this.inAsync && this.eatContextual("await")
-
+    if (this.options.ecmaVersion === 4 && this.tok.type === tt._each && this.expect(tt._each)) node.type = tt._each
     this.pushCx()
     this.expect(tt.parenL)
     if (this.tok.type === tt.semi) return this.parseFor(node, null)
@@ -226,6 +226,7 @@ lp.parseBlock = function() {
 }
 
 lp.parseFor = function(node, init) {
+  let type = (node.type === tt._each) ? "ForEachInStatement" : "ForStatement"
   node.init = init
   node.test = node.update = null
   if (this.eat(tt.semi) && this.tok.type !== tt.semi) node.test = this.parseExpression()
@@ -233,11 +234,12 @@ lp.parseFor = function(node, init) {
   this.popCx()
   this.expect(tt.parenR)
   node.body = this.parseStatement()
-  return this.finishNode(node, "ForStatement")
+  return this.finishNode(node, type)
 }
 
 lp.parseForIn = function(node, init) {
-  let type = this.tok.type === tt._in ? "ForInStatement" : "ForOfStatement"
+  let type = (node.type === tt._each) ? "ForEachInStatement" : undefined
+  if (type === undefined) type = this.tok.type === tt._in ? "ForInStatement" : "ForOfStatement"
   this.next()
   node.left = init
   node.right = this.parseExpression()

@@ -209,6 +209,12 @@ pp.parseDoStatement = function(node) {
 
 pp.parseForStatement = function(node) {
   this.next()
+  if (this.options.ecmaVersion === 4) {
+    if (this.type === tt._each) {
+      this.expect(tt._each)
+      node.type = tt._each
+    }
+  }
   let awaitAt = (this.options.ecmaVersion >= 9 && (this.inAsync || (!this.inFunction && this.options.allowAwaitOutsideFunction)) && this.eatContextual("await")) ? this.lastTokStart : -1
   this.labels.push(loopLabel)
   this.enterScope(0)
@@ -446,7 +452,8 @@ pp.parseFor = function(node, init) {
   node.body = this.parseStatement("for")
   this.exitScope()
   this.labels.pop()
-  return this.finishNode(node, "ForStatement")
+  let type = (node.type === tt._each) ? "ForEachInStatement" : "ForStatement"
+  return this.finishNode(node, type)
 }
 
 // Parse a `for`/`in` and `for`/`of` loop, which are almost
@@ -482,7 +489,9 @@ pp.parseForIn = function(node, init) {
   node.body = this.parseStatement("for")
   this.exitScope()
   this.labels.pop()
-  return this.finishNode(node, isForIn ? "ForInStatement" : "ForOfStatement")
+  let type = (node.type === tt._each) ? "ForEachInStatement" : undefined
+  if (type === undefined) type = isForIn ? "ForInStatement" : "ForOfStatement"
+  return this.finishNode(node, type)
 }
 
 // Parse a list of variable declarations.
